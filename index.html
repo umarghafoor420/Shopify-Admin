@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shopify Admin</title>
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M150 150 L150 100 A 100 100 0 0 1 362 100 L362 150' fill='none' stroke='%2395BF47' stroke-width='40'/%3E%3Cpath d='M64 150 L448 150 L480 480 L32 480 Z' fill='%2395BF47'/%3E%3Cpath d='M256 380 C 200 380 180 350 180 330 L 220 330 C 220 340 230 350 256 350 C 280 350 280 330 256 320 L 230 310 C 180 290 180 240 230 220 L 230 200 L 282 200 L 282 220 C 320 220 340 250 340 270 L 300 270 C 300 260 290 250 256 250 C 230 250 230 270 256 280 L 282 290 C 332 310 332 360 282 380 L 282 400 L 230 400 L 230 380 Z' fill='white'/%3E%3C/svg%3E">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* === RESET & CORE === */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f1f1;
+            color: #303030;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* === ANIMATIONS === */
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-card { animation: fadeIn 0.6s ease-out forwards; opacity: 0; }
+        .grid-4 .card:nth-child(1) { animation-delay: 0.1s; }
+        .grid-4 .card:nth-child(2) { animation-delay: 0.2s; }
+        .grid-4 .card:nth-child(3) { animation-delay: 0.3s; }
+        .grid-4 .card:nth-child(4) { animation-delay: 0.4s; }
+        .animated-path { stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: drawLine 2s ease-out forwards; }
+
+        /* === HEADER === */
+        .site-header {
+            height: 56px; background-color: #1a1c1d; color: #e3e4e5;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 12px; position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+        }
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .menu-toggle { display: none; cursor: pointer; color: #e3e4e5; }
+        .logo-group { display: flex; align-items: center; } 
+        .custom-logo { height: 32px; width: auto; object-fit: contain; display: block; }
+        .header-center { flex: 1; display: flex; justify-content: center; padding: 0 20px; }
+        .search-bar-container { position: relative; width: 100%; max-width: 480px; }
+        .search-input { width: 100%; background-color: #303030; border: 1px solid #303030; border-radius: 8px; padding: 8px 36px; color: #e3e4e5; font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .search-input:focus { border-color: #858585; }
+        .search-icon-left { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #999; }
+        .search-shortcut { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 11px; background: #444; padding: 2px 6px; border-radius: 4px; color: #ccc; }
+        .header-right { display: flex; align-items: center; gap: 12px; }
+        .icon-btn { padding: 6px; border-radius: 6px; cursor: pointer; display: flex; color: #e3e4e5; }
+        .icon-btn:hover { background-color: #303030; }
+        .profile-badge { background-color: #36fba1; color: #000; font-size: 12px; font-weight: 600; width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+        .profile-name { font-size: 13px; font-weight: 500; }
+
+        /* === APP LAYOUT === */
+        .app-container { display: flex; flex: 1; margin-top: 56px; height: calc(100vh - 56px); position: relative; }
+        .sidebar { width: 240px; background-color: #ebebeb; border-right: 1px solid #d4d4d4; display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; transition: transform 0.3s ease; }
+        .store-selector { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-weight: 600; font-size: 14px; color: #1a1c1d; cursor: pointer; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 8px 16px 8px 24px; font-size: 14px; font-weight: 500; color: #4a4a4a; cursor: pointer; }
+        .nav-item:hover { background-color: #e1e1e1; color: #1a1c1d; }
+        .nav-item.active { background-color: #dadada; color: #1a1c1d; font-weight: 600; position: relative; }
+        .nav-item.active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background-color: #008060; border-radius: 0 4px 4px 0; }
+        .nav-section-title { font-size: 12px; font-weight: 600; color: #616161; padding: 12px 16px 8px 24px; display: flex; justify-content: space-between; }
+        .sidebar-footer { margin-top: auto; padding-bottom: 16px; }
+
+        /* === MAIN CONTENT === */
+        .main-content-area { flex: 1; overflow-y: auto; padding: 32px; scroll-behavior: smooth; }
+        .analytics-header { margin-bottom: 24px; }
+        .page-title { font-size: 20px; font-weight: 700; color: #1a1c1d; margin-right: 10px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+        .grid-sidebar { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .card { background: white; border: 1px solid #e1e3e5; border-radius: 12px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; position: relative; }
+        .card-min-h { min-height: 110px; justify-content: space-between; }
+        .card-fixed-h { height: 280px; }
+        .card-title { font-size: 13px; font-weight: 600; border-bottom: 1px dotted #8c9196; display: inline-block; cursor: help; margin-bottom: 4px; }
+        .big-number { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .big-number-lg { font-size: 28px; margin-top: 4px; }
+        .mini-bar { width: 12px; height: 2px; background-color: #3b82f6; align-self: flex-end; margin-top: auto; }
+        .trend-up { color: #008060; font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 2px; }
+        
+        /* Chart Styles - Fixed Overflow */
+        .chart-container-lg { height: 300px; margin-top: 20px; position: relative; }
+        .chart-container { height: 220px; margin-top: 20px; position: relative; }
+        .chart-area { margin-left: 40px; height: 100%; position: relative; overflow: hidden; /* Clips lines */ }
+        .svg-chart { width: 100%; height: calc(100% - 30px); position: absolute; top: 0; left: 0; overflow: visible; }
+        .chart-y-axis { position: absolute; left: 0; top: 0; bottom: 30px; display: flex; flex-direction: column; justify-content: space-between; font-size: 11px; color: #8c9196; }
+        .x-axis-labels { position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-between; font-size: 11px; color: #8c9196; padding-top: 10px; white-space: nowrap; overflow: hidden; }
+        .grid-lines { position: absolute; top: 0; left: 0; right: 0; bottom: 30px; display: flex; flex-direction: column; justify-content: space-between; }
+        .grid-line { width: 100%; height: 1px; background-color: #f1f2f3; }
+        
+        /* Lists & Tables */
+        .breakdown-list { list-style: none; margin-top: 10px; }
+        .list-item { display: flex; justify-content: space-between; padding: 8px 0; font-size: 13px; border-bottom: 1px solid #f9f9f9; }
+        .product-list { list-style: none; margin-top: 10px; overflow-y: auto; }
+        .product-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f1f1; }
+        .product-info { display: flex; align-items: center; gap: 10px; }
+        .product-img { width: 32px; height: 32px; background-color: #e1e3e5; border-radius: 4px; border: 1px solid #ccc; }
+        .product-name { font-size: 13px; font-weight: 500; color: #005bd3; }
+        .product-stat { font-size: 12px; color: #616161; }
+        .funnel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 30px; }
+        .funnel-item { display: flex; flex-direction: column; gap: 4px; font-size: 13px; border-left: 1px solid #e1e3e5; padding-left: 12px; }
+        .funnel-item:first-child { border-left: none; padding-left: 0; }
+        .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .cohort-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: center; min-width: 600px; }
+        .cohort-table th, .cohort-table td { padding: 12px 4px; }
+        .heat-cell { background-color: #ebf5ff; color: #005bd3; font-weight: 500; }
+        
+        .filters-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 16px; }
+        .btn-filter { background: white; border: 1px solid #babfc3; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: #1a1c1d; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .text-blue { color: #005bd3; } .font-bold { font-weight: 700; }
+
+        /* Media Queries */
+        @media (max-width: 1024px) {
+            .sidebar { width: 60px; }
+            .nav-item span, .store-selector span, .nav-section-title { display: none; }
+            .nav-item { justify-content: center; padding: 12px; }
+            .store-selector { justify-content: center; padding: 12px; }
+            .grid-4, .grid-3, .grid-sidebar { grid-template-columns: 1fr 1fr; }
+            .main-content-area { padding: 20px; }
+        }
+
+        @media (max-width: 600px) {
+            .menu-toggle { display: block; margin-right: 4px; }
+            .logo-group { display: none; }
+            .header-center { display: flex; padding: 0 10px; }
+            .search-shortcut { display: none; }
+            .profile-name { display: none; }
+            .sidebar { position: fixed; top: 56px; left: -100%; bottom: 0; z-index: 100; width: 85%; max-width: 300px; background: white; border-right: 1px solid #ddd; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+            .sidebar.open { left: 0; }
+            .sidebar .nav-item span, .sidebar .store-selector span, .sidebar .nav-section-title { display: inline-block; }
+            .sidebar .nav-item { justify-content: flex-start; padding: 12px 20px; }
+            .overlay { display: none; position: fixed; top: 56px; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 90; }
+            .overlay.active { display: block; }
+            .main-content-area { padding: 16px; }
+            .grid-4, .grid-3, .grid-sidebar { grid-template-columns: 1fr; }
+            .funnel-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .funnel-item { border-left: none; padding-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <header class="site-header">
+        <div class="header-left">
+            <div class="menu-toggle" onclick="toggleSidebar()"><i data-lucide="menu" width="24"></i></div>
+            <div class="logo-group">
+                <img src="C:\Users\dc\OneDrive\Desktop\Expo,projects\poko\logoo.png" alt="Shopify Logo" class="custom-logo">
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="search-bar-container">
+                <i data-lucide="search" width="16" class="search-icon-left"></i>
+                <input type="text" class="search-input" placeholder="Search">
+                <span class="search-shortcut">CTRL K</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="icon-btn"><i data-lucide="bot" width="20"></i></div>
+            <div class="icon-btn"><i data-lucide="bell" width="20"></i></div>
+            <div class="flex-center gap-2 cursor-pointer">
+                <span class="profile-name">testingstore1</span>
+                <div class="profile-badge">MS</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="store-selector"><span>My Store</span><i data-lucide="chevrons-up-down" width="16"></i></div>
+            <nav style="padding: 8px 0;">
+                <a class="nav-item"><i data-lucide="home" width="20"></i> <span>Home</span></a>
+                <a class="nav-item"><i data-lucide="package" width="20"></i> <span>Orders</span></a>
+                <a class="nav-item"><i data-lucide="tag" width="20"></i> <span>Products</span></a>
+                <a class="nav-item"><i data-lucide="users" width="20"></i> <span>Customers</span></a>
+                <a class="nav-item active"><i data-lucide="bar-chart-3" width="20"></i> <span>Analytics</span></a>
+                <a class="nav-item"><i data-lucide="percent" width="20"></i> <span>Discounts</span></a>
+            </nav>
+            <div style="padding: 8px 0;">
+                <div class="nav-section-title"><span>Sales channels</span> <i data-lucide="chevron-right" width="16"></i></div>
+                <a class="nav-item"><i data-lucide="store" width="20"></i> <span>Online Store</span></a>
+            </div>
+            <div class="sidebar-footer">
+                <a class="nav-item"><i data-lucide="settings" width="20"></i> <span>Settings</span></a>
+            </div>
+        </aside>
+
+        <main class="main-content-area">
+            <div class="analytics-header">
+                <div class="flex-center" style="justify-content: space-between; flex-wrap: wrap;">
+                    <div class="flex-center">
+                        <h1 class="page-title">Analytics</h1>
+                        <span id="lastRefreshed" style="font-size: 12px; color: #616161;">Last refreshed: --:-- AM</span>
+                    </div>
+                </div>
+                <div class="filters-row">
+                    <button class="btn-filter"><i data-lucide="calendar" width="14"></i> Today</button>
+                    <button class="btn-filter"><i data-lucide="calendar" width="14"></i> Dec 24, 2025</button>
+                    <button class="btn-filter"><i data-lucide="dollar-sign" width="14"></i> USD $</button>
+                </div>
+            </div>
+
+            <div class="grid-4">
+                <div class="card card-min-h animate-card"><div><div class="card-title">Gross sales</div><div class="big-number">$12,450.00</div></div><div class="trend-up"><i data-lucide="trending-up" width="14"></i> 12%</div></div>
+                <div class="card card-min-h animate-card"><div><div class="card-title">Returning customer rate</div><div class="big-number">15.2%</div></div><div class="trend-up"><i data-lucide="trending-up" width="14"></i> 2%</div></div>
+                <div class="card card-min-h animate-card"><div><div class="card-title">Orders fulfilled</div><div class="big-number">142</div></div><div class="mini-bar"></div></div>
+                <div class="card card-min-h animate-card"><div><div class="card-title">Orders</div><div class="big-number">145</div></div><div class="trend-up"><i data-lucide="trending-up" width="14"></i> 8%</div></div>
+            </div>
+
+            <div class="grid-sidebar">
+                <div class="card animate-card" style="min-height: 420px; animation-delay: 0.5s;">
+                    <div><div class="card-title card-title-lg">Total sales over time</div><div class="big-number big-number-lg">$12,450.00</div></div>
+                    <div class="chart-container-lg">
+                        <div class="chart-y-axis"><span>$15k</span><span>$10k</span><span>$5k</span><span>$0</span></div>
+                        <div class="chart-area">
+                            <div class="grid-lines"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div>
+                            <svg class="svg-chart" viewBox="0 0 1000 300" preserveAspectRatio="none">
+                                <path d="M0 280 C 100 280, 200 150, 400 200 S 700 50, 1000 80 V 300 H 0 Z" fill="rgba(59, 130, 246, 0.1)" stroke="none" />
+                                <path class="animated-path" d="M0 280 C 100 280, 200 150, 400 200 S 700 50, 1000 80" fill="none" stroke="#3b82f6" stroke-width="3" vector-effect="non-scaling-stroke"/>
+                            </svg>
+                            <div class="x-axis-labels"><span>12 AM</span><span>4 AM</span><span>8 AM</span><span>12 PM</span><span>4 PM</span><span>8 PM</span><span>11 PM</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card animate-card" style="animation-delay: 0.6s;">
+                    <div class="card-title card-title-lg">Total sales breakdown</div>
+                    <ul class="breakdown-list">
+                        <li class="list-item"><span class="text-blue">Gross sales</span><span>$12,450.00</span></li>
+                        <li class="list-item"><span class="text-blue">Discounts</span><span>-$50.00</span></li>
+                        <li class="list-item"><span class="text-blue">Returns</span><span>-$120.00</span></li>
+                        <li class="list-item" style="background:#f1f2f3; border-radius:6px; font-weight:500;"><span class="text-blue">Net sales</span><span>$12,280.00</span></li>
+                        <li class="list-item"><span class="text-blue">Shipping</span><span>$350.00</span></li>
+                        <li class="list-item"><span class="text-blue">Taxes</span><span>$1,200.00</span></li>
+                        <li class="list-item" style="border-top:1px solid #e1e3e5; font-weight:700;"><span class="text-blue">Total sales</span><span>$13,830.00</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="card card-fixed-h animate-card" style="animation-delay: 0.7s;">
+                    <div class="card-title card-title-lg">Total sales by sales channel</div>
+                    <ul class="breakdown-list">
+                         <li class="list-item"><span>Online Store</span><span>$10,500.00</span></li>
+                         <li class="list-item"><span>Facebook Shop</span><span>$1,200.00</span></li>
+                         <li class="list-item"><span>Instagram</span><span>$750.00</span></li>
+                    </ul>
+                </div>
+                <div class="card card-fixed-h animate-card" style="animation-delay: 0.8s;">
+                    <div><div class="card-title card-title-lg">Average order value</div><div class="big-number">$85.20</div></div>
+                    <div class="chart-container">
+                        <div class="chart-y-axis"><span>$100</span><span>$0</span></div>
+                        <div class="chart-area">
+                            <div class="grid-lines"><div class="grid-line"></div><div class="grid-line"></div></div>
+                            <svg class="svg-chart" viewBox="0 0 500 150" preserveAspectRatio="none">
+                                <path class="animated-path" d="M0 130 Q 150 140, 250 80 T 500 40" fill="none" stroke="#3b82f6" stroke-width="3" vector-effect="non-scaling-stroke" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-fixed-h animate-card" style="overflow-y: hidden; animation-delay: 0.9s;">
+                    <div class="card-title card-title-lg">Top Products</div>
+                    <ul class="product-list">
+                        <li class="product-item"><div class="product-info"><div class="product-img"></div><div><div class="product-name">Leather Wallet</div><div class="product-stat">45 sold</div></div></div><span>$2,250</span></li>
+                        <li class="product-item"><div class="product-info"><div class="product-img"></div><div><div class="product-name">Smart Watch</div><div class="product-stat">32 sold</div></div></div><span>$4,800</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="card card-fixed-h animate-card" style="animation-delay: 1.0s;">
+                    <div><div class="card-title card-title-lg">Sessions</div><div class="big-number">4,250</div></div>
+                    <div class="chart-container">
+                        <div class="chart-y-axis"><span>5k</span><span>0</span></div>
+                        <div class="chart-area"><div class="grid-lines"><div class="grid-line"></div><div class="grid-line"></div></div>
+                        <svg class="svg-chart" viewBox="0 0 500 150" preserveAspectRatio="none">
+                             <path class="animated-path" d="M0 140 Q 150 120, 300 50 T 500 80" fill="none" stroke="#3b82f6" stroke-width="3" vector-effect="non-scaling-stroke" />
+                        </svg></div>
+                    </div>
+                </div>
+                <div class="card card-fixed-h animate-card" style="animation-delay: 1.1s;">
+                    <div><div class="card-title card-title-lg">Conversion breakdown</div><div class="big-number big-number-lg">3.2%</div></div>
+                    <div class="funnel-grid">
+                        <div class="funnel-item"><span style="color:#616161">Sessions</span><span class="font-bold">4,250</span></div>
+                        <div class="funnel-item"><span style="color:#616161">Cart</span><span class="font-bold">320</span></div>
+                        <div class="funnel-item"><span style="color:#616161">Checkout</span><span class="font-bold">180</span></div>
+                        <div class="funnel-item"><span style="color:#616161">Converted</span><span class="font-bold">145</span></div>
+                    </div>
+                </div>
+                <div class="card card-fixed-h animate-card" style="animation-delay: 1.2s;">
+                    <div class="card-title card-title-lg">Top Referrers</div>
+                    <ul class="breakdown-list">
+                         <li class="list-item"><span>Google Search</span><span>1,850 sessions</span></li>
+                         <li class="list-item"><span>Direct</span><span>920 sessions</span></li>
+                         <li class="list-item"><span>Instagram</span><span>850 sessions</span></li>
+                         <li class="list-item"><span>TikTok</span><span>410 sessions</span></li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            document.getElementById('lastRefreshed').innerText = `Last refreshed: ${hours}:${minutes} ${ampm}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+    </script>
+</body>
+</html>
