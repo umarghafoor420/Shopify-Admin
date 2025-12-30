@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shopify Admin - Final Responsive & Animated</title>
+    <title>Shopify Admin - Mobile Navbar Fixed</title>
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M150 150 L150 100 A 100 100 0 0 1 362 100 L362 150' fill='none' stroke='%2395BF47' stroke-width='40'/%3E%3Cpath d='M64 150 L448 150 L480 480 L32 480 Z' fill='%2395BF47'/%3E%3Cpath d='M256 380 C 200 380 180 350 180 330 L 220 330 C 220 340 230 350 256 350 C 280 350 280 330 256 320 L 230 310 C 180 290 180 240 230 220 L 230 200 L 282 200 L 282 220 C 320 220 340 250 340 270 L 300 270 C 300 260 290 250 256 250 C 230 250 230 270 256 280 L 282 290 C 332 310 332 360 282 380 L 282 400 L 230 400 L 230 380 Z' fill='white'/%3E%3C/svg%3E">
 
@@ -18,13 +18,12 @@
         ul { list-style: none; }
 
         /* === ANIMATIONS === */
-        @keyframes drawLine { from { stroke-dashoffset: 2000; } to { stroke-dashoffset: 0; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .animate-text { animation: fadeIn 0.3s ease-out; }
-        .animated-path { stroke-dasharray: 2000; stroke-dashoffset: 0; transition: d 1s ease-in-out; }
         .animate-card { animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
         .grid-4 .card:nth-child(1) { animation-delay: 0.1s; } .grid-4 .card:nth-child(2) { animation-delay: 0.15s; }
         .grid-4 .card:nth-child(3) { animation-delay: 0.2s; } .grid-4 .card:nth-child(4) { animation-delay: 0.25s; }
+        .animated-path { stroke-dasharray: 2000; stroke-dashoffset: 0; transition: d 1s ease-in-out; }
 
         /* === HEADER === */
         .site-header { height: 56px; background-color: #1a1c1d; color: #e3e4e5; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
@@ -33,13 +32,7 @@
         .custom-logo { height: 32px; width: auto; object-fit: contain; }
         .header-center { flex: 1; display: flex; justify-content: center; padding: 0 20px; }
         
-        /* Search Bar */
-        .search-bar-container { 
-            position: relative; width: 100%; max-width: 500px; 
-            background-color: #303030; border: 1px solid #4a4a4a; 
-            border-radius: 8px; height: 32px; display: flex; 
-            align-items: center; padding: 0 8px; transition: border-color 0.2s; 
-        }
+        .search-bar-container { position: relative; width: 100%; max-width: 500px; background-color: #303030; border: 1px solid #4a4a4a; border-radius: 8px; height: 32px; display: flex; align-items: center; padding: 0 8px; transition: border-color 0.2s; }
         .search-bar-container:focus-within { border-color: #858585; background-color: #303030; }
         .search-icon-left { color: #9a9a9a; margin-right: 8px; }
         .search-input { background: transparent; border: none; color: #e3e4e5; font-size: 13px; outline: none; flex: 1; height: 100%; padding: 0; }
@@ -50,14 +43,25 @@
         .header-right { display: flex; align-items: center; gap: 12px; min-width: 0; }
         .icon-btn { padding: 6px; border-radius: 6px; cursor: pointer; display: flex; color: #e3e4e5; flex-shrink: 0; align-items: center; justify-content: center; }
         .icon-btn:hover { background-color: #303030; }
+        
+        /* Profile Section Fixed - Badge First, Then Name */
         .profile-container { display: flex; align-items: center; gap: 8px; cursor: pointer; min-width: 0; }
-        .profile-badge { background-color: #36fba1; color: #000; font-size: 12px; font-weight: 600; width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .profile-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; color: #e3e4e5; }
+        .profile-badge { 
+            background-color: #36fba1; color: #000; 
+            font-size: 12px; font-weight: 700; 
+            width: 28px; height: 28px; border-radius: 6px; 
+            display: flex; align-items: center; justify-content: center; 
+            flex-shrink: 0; 
+        }
+        .profile-name { 
+            font-size: 13px; font-weight: 500; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+            max-width: 100px; color: #e3e4e5; 
+        }
 
         /* === LAYOUT === */
         .app-container { display: flex; flex: 1; margin-top: 56px; height: calc(100vh - 56px); position: relative; }
         .sidebar { width: 240px; background-color: #ebebeb; border-right: 1px solid #d4d4d4; display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; transition: transform 0.3s ease; }
-        
         .nav-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; margin: 2px 8px; border-radius: 8px; font-size: 14px; font-weight: 500; color: #5c5f62; cursor: pointer; text-decoration: none; }
         .nav-item-left { display: flex; align-items: center; gap: 10px; }
         .nav-item:hover { background-color: #e1e1e1; color: #1a1c1d; }
@@ -65,19 +69,8 @@
         .nav-arrow { color: #8c9196; visibility: hidden; }
         .nav-item:hover .nav-arrow, .nav-item.active .nav-arrow { visibility: visible; }
         
-        /* === SUBMENU ANIMATION === */
-        .nav-sub-menu { 
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
-            opacity: 0;
-        }
-        .nav-group.active .nav-sub-menu { 
-            max-height: 100px; /* Enough height for 2 items */
-            opacity: 1;
-            padding-bottom: 4px;
-        }
-        
+        .nav-sub-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; opacity: 0; }
+        .nav-group.active .nav-sub-menu { max-height: 100px; opacity: 1; padding-bottom: 4px; }
         .nav-sub-item { display: block; padding: 6px 12px 6px 44px; margin: 0 8px; border-radius: 8px; font-size: 13px; color: #5c5f62; text-decoration: none; font-weight: 400; }
         .nav-sub-item:hover { color: #1a1c1d; background-color: #e1e1e1; }
         
@@ -89,8 +82,8 @@
         .page-section { display: none; }
         .page-section.active { display: block; animation: fadeIn 0.3s ease-out; }
         
-        /* Header */
-        .analytics-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; width: 100%; }
+        .analytics-header { margin-bottom: 24px; }
+        .analytics-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; width: 100%; }
         .analytics-title-group { display: flex; align-items: baseline; gap: 12px; }
         .page-title { font-size: 20px; font-weight: 700; color: #1a1c1d; margin: 0; display: flex; align-items: center; gap: 8px; }
         .last-refreshed { font-size: 12px; color: #616161; font-weight: 400; margin-left: 8px;}
@@ -99,7 +92,7 @@
         .header-icon-btn:hover { background: #d4d6d8; }
         .btn-black { background: #303030; color: white; border: none; border-radius: 8px; padding: 0 16px; height: 32px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; }
         
-        /* Filters */
+        /* FILTERS */
         .filters-row { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
         .dropdown { position: relative; display: inline-block; }
         .btn-filter { background: white; border: 1px solid #babfc3; border-radius: 8px; padding: 0 12px; height: 32px; font-size: 13px; font-weight: 500; color: #303030; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 0 rgba(0,0,0,0.05); transition: background 0.1s; }
@@ -111,7 +104,7 @@
         .check-icon { opacity: 0; }
         .dropdown-item.selected .check-icon { opacity: 1; color: #008060; }
 
-        /* Cards */
+        /* Grids & Cards */
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
         .grid-sidebar { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
@@ -150,7 +143,7 @@
         .cohort-table { width: 100%; border-collapse: collapse; font-size: 13px; }
         .cohort-table th, .cohort-table td { padding: 10px; text-align: center; }
         .heat-cell { background-color: #ebf5ff; color: #005bd3; border-radius: 4px; }
-        .empty-state-container { flex: 1; display: flex; align-items: center; justify-content: center; color: #616161; font-size: 14px; }
+        .empty-state-container { flex: 1; display: flex; align-items: center; justify-content: center; color: #8c9196; font-size: 14px; }
 
         /* Orders & Settings */
         .orders-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
@@ -172,19 +165,30 @@
         .settings-btn { background: #008060; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; }
         .settings-btn:hover { background: #006e52; }
 
+        /* Responsive */
         @media (max-width: 1024px) {
-            .sidebar { width: 60px; } .nav-item-left span, .nav-arrow, .store-selector span, .nav-sub-menu { display: none !important; } .nav-item { justify-content: center; padding: 12px; }
+            .sidebar { width: 60px; } 
+            .nav-item-left span, .nav-arrow, .store-selector span, .nav-sub-menu { display: none; } 
+            .nav-item { justify-content: center; padding: 12px; }
             .grid-4, .grid-sidebar, .grid-3 { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 600px) {
             .menu-toggle { display: block; margin-right: 8px; }
             .header-center { display: flex; padding: 0 8px; }
-            .profile-name { display: none; }
+            
+            /* === MOBILE NAVBAR FIXES === */
+            .header-right { gap: 8px; } /* Reduce gap on mobile */
+            .profile-name { display: none; } /* HIDE full name on mobile for clean look */
+            
             .sidebar { position: fixed; top: 56px; left: -100%; width: 85%; z-index: 100; background: white; border-right: 1px solid #ddd; height: calc(100vh - 56px); }
             .sidebar.open { left: 0; }
-            .sidebar .nav-item span, .sidebar .store-selector span { display: inline-block; }
+            
+            /* FORCE SHOW TEXT ON MOBILE DRAWER */
+            .sidebar .nav-item-left span, .sidebar .nav-arrow, .sidebar .store-selector span { display: inline-block !important; }
+            .sidebar .nav-sub-menu { display: none; } 
+            .sidebar .nav-group.active .nav-sub-menu { display: block !important; max-height: none; } 
+            
             .sidebar .nav-item { justify-content: space-between; padding: 10px 16px; }
-            .sidebar .nav-group.active .nav-sub-menu { display: block; }
             .grid-4, .grid-sidebar, .grid-3 { grid-template-columns: 1fr; }
             .funnel-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
             .funnel-item { border-left: none; padding-left: 0; }
@@ -223,8 +227,8 @@
             </div>
             <div class="icon-btn"><i data-lucide="bell" width="20"></i></div>
             <div class="profile-container">
+                <div class="profile-badge">SH</div>
                 <span class="profile-name">Shahzaman</span>
-                <div class="profile-badge">MS</div>
             </div>
         </div>
     </header>
@@ -243,7 +247,7 @@
                 <div class="nav-group active">
                     <a href="#" class="nav-item active" onclick="showPage('dashboard', this)">
                         <div class="nav-item-left"><i data-lucide="bar-chart-3" width="20"></i> <span>Analytics</span></div>
-                        
+                        <i data-lucide="chevron-right" width="16"></i>
                     </a>
                     <ul class="nav-sub-menu">
                         <li><a href="#" class="nav-sub-item">Reports</a></li>
@@ -462,10 +466,10 @@
                 <div class="settings-grid">
                     <div class="card">
                         <h3>Dashboard Values</h3>
-                        <div class="settings-input-group" style="margin-top:10px;"><label class="settings-label">Gross Sales</label><input type="text" id="inputGross" class="settings-input" value="PKR 12,450.00"></div>
-                        <div class="settings-input-group"><label class="settings-label">Returns</label><input type="text" id="inputReturn" class="settings-input" value="15.2%"></div>
-                        <div class="settings-input-group"><label class="settings-label">Fulfilled</label><input type="text" id="inputFulfilled" class="settings-input" value="142"></div>
-                        <div class="settings-input-group"><label class="settings-label">Orders</label><input type="text" id="inputTotalOrders" class="settings-input" value="145"></div>
+                        <div class="settings-input-group" style="margin-top:10px;"><label class="settings-label">Gross Sales</label><input type="text" id="inputGross" class="settings-input"></div>
+                        <div class="settings-input-group"><label class="settings-label">Returns</label><input type="text" id="inputReturn" class="settings-input"></div>
+                        <div class="settings-input-group"><label class="settings-label">Fulfilled</label><input type="text" id="inputFulfilled" class="settings-input"></div>
+                        <div class="settings-input-group"><label class="settings-label">Orders</label><input type="text" id="inputTotalOrders" class="settings-input"></div>
                         <button class="settings-btn" onclick="saveDashboardSettings()">Save Changes</button>
                     </div>
                     <div class="card">
@@ -503,8 +507,7 @@
         };
 
         function initData() {
-            // Check for new storage key to force refresh
-            const savedData = localStorage.getItem('shopifyCloneDataPKR_Final');
+            const savedData = localStorage.getItem('shopifyCloneData');
             if (savedData) {
                 appData = JSON.parse(savedData);
                 if (!appData.ordersList) appData.ordersList = [];
@@ -531,7 +534,7 @@
         }
 
         function saveData() {
-            localStorage.setItem('shopifyCloneDataPKR_Final', JSON.stringify(appData));
+            localStorage.setItem('shopifyCloneData', JSON.stringify(appData));
             renderAll();
         }
 
@@ -606,7 +609,7 @@
 
         function resetAll() {
             if(confirm("Reset all data?")) {
-                localStorage.removeItem('shopifyCloneDataPKR_Final');
+                localStorage.removeItem('shopifyCloneData');
                 location.reload();
             }
         }
