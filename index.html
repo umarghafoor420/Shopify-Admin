@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shopify Admin - Complete Master</title>
+    <title>Shopify Admin - Final Master v6</title>
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M150 150 L150 100 A 100 100 0 0 1 362 100 L362 150' fill='none' stroke='%2395BF47' stroke-width='40'/%3E%3Cpath d='M64 150 L448 150 L480 480 L32 480 Z' fill='%2395BF47'/%3E%3Cpath d='M256 380 C 200 380 180 350 180 330 L 220 330 C 220 340 230 350 256 350 C 280 350 280 330 256 320 L 230 310 C 180 290 180 240 230 220 L 230 200 L 282 200 L 282 220 C 320 220 340 250 340 270 L 300 270 C 300 260 290 250 256 250 C 230 250 230 270 256 280 L 282 290 C 332 310 332 360 282 380 L 282 400 L 230 400 L 230 380 Z' fill='white'/%3E%3C/svg%3E">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -20,15 +20,9 @@
 
         /* === ANIMATIONS === */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-text { animation: fadeIn 0.3s ease-out; }
-        .animate-card { animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
-        .grid-4 .card:nth-child(1) { animation-delay: 0.1s; } .grid-4 .card:nth-child(2) { animation-delay: 0.15s; }
-        .grid-4 .card:nth-child(3) { animation-delay: 0.2s; } .grid-4 .card:nth-child(4) { animation-delay: 0.25s; }
-        .animated-path { stroke-dasharray: 2000; stroke-dashoffset: 0; transition: d 1s ease-in-out; }
-        
-        /* Chart Line Animation */
+        .path-animate { stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: drawLine 2s ease-out forwards; }
         @keyframes drawLine { to { stroke-dashoffset: 0; } }
-        .path-animate { stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: drawLine 2.5s ease-out forwards; }
+        .animate-card { animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
 
         /* === HEADER === */
         .site-header { height: 56px; background-color: #1a1c1d; color: #e3e4e5; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
@@ -36,7 +30,6 @@
         .menu-toggle { display: none; cursor: pointer; color: #e3e4e5; }
         .custom-logo { height: 32px; width: auto; object-fit: contain; }
         .header-center { flex: 1; display: flex; justify-content: center; padding: 0 20px; }
-        
         .search-bar-container { position: relative; width: 100%; max-width: 500px; background-color: #303030; border: 1px solid #4a4a4a; border-radius: 8px; height: 32px; display: flex; align-items: center; padding: 0 8px; transition: border-color 0.2s; }
         .search-bar-container:focus-within { border-color: #858585; background-color: #303030; }
         .search-icon-left { color: #9a9a9a; margin-right: 8px; }
@@ -44,13 +37,11 @@
         .search-input::placeholder { color: #9a9a9a; }
         .search-shortcut { display: flex; align-items: center; gap: 4px; }
         .kbd-key { background: #454545; border: 1px solid #5a5a5a; border-radius: 4px; color: #c9c9c9; font-size: 10px; font-weight: 600; padding: 2px 5px; font-family: monospace; }
-
         .header-right { display: flex; align-items: center; gap: 12px; min-width: 0; }
         .icon-btn { padding: 6px; border-radius: 6px; cursor: pointer; display: flex; color: #e3e4e5; flex-shrink: 0; align-items: center; justify-content: center; }
         .icon-btn:hover { background-color: #303030; }
-        
         .profile-container { display: flex; align-items: center; gap: 8px; cursor: pointer; min-width: 0; }
-        .profile-badge { background-color: #36fba1; color: #000; font-size: 12px; font-weight: 700; width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .profile-badge { background-color: #36fba1; color: #000; font-size: 12px; font-weight: 600; width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .profile-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; color: #e3e4e5; }
 
         /* === LAYOUT === */
@@ -62,7 +53,6 @@
         .nav-item.active { background-color: #ffffff; color: #1a1c1d; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
         .nav-arrow { color: #8c9196; visibility: hidden; }
         .nav-item:hover .nav-arrow, .nav-item.active .nav-arrow { visibility: visible; }
-        
         .nav-sub-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; opacity: 0; }
         .nav-group.active .nav-sub-menu { max-height: 100px; opacity: 1; padding-bottom: 4px; }
         .nav-sub-item { display: block; padding: 6px 12px 6px 44px; margin: 0 8px; border-radius: 8px; font-size: 13px; color: #5c5f62; text-decoration: none; font-weight: 400; }
@@ -85,7 +75,6 @@
         .header-icon-btn:hover { background: #d4d6d8; }
         .btn-black { background: #303030; color: white; border: none; border-radius: 8px; padding: 0 16px; height: 32px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; }
         
-        /* FILTERS */
         .filters-row { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
         .dropdown { position: relative; display: inline-block; }
         .btn-filter { background: white; border: 1px solid #babfc3; border-radius: 8px; padding: 0 12px; height: 32px; font-size: 13px; font-weight: 500; color: #303030; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 0 rgba(0,0,0,0.05); transition: background 0.1s; }
@@ -97,19 +86,39 @@
         .check-icon { opacity: 0; }
         .dropdown-item.selected .check-icon { opacity: 1; color: #008060; }
 
-        /* Grids & Cards */
+        /* === HOME PAGE TABS === */
+        .stat-tabs-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; padding: 4px;}
+        .stat-tab { 
+            padding: 16px; border: 1px solid transparent; border-radius: 12px; 
+            position: relative; cursor: pointer; background-color: transparent; 
+            transition: all 0.2s ease;
+        }
+        .stat-tab:hover { background-color: #f7f7f7; border-color: #e1e3e5; }
+        .stat-tab.active { background-color: #f1f1f1; border-color: #e1e3e5; }
+        
+        .stat-label { font-size: 13px; font-weight: 700; color: #303030; display: flex; align-items: center; gap: 6px; margin-bottom: 6px;}
+        .stat-value { font-size: 16px; font-weight: 800; color: #1a1c1d; } 
+        .stat-trend { font-size: 12px; font-weight: 600; margin-left: 6px; }
+
+        /* Integrated Card */
+        .card-integrated { 
+            background: white; border: 1px solid #e1e3e5; border-radius: 12px; 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05); display: flex; flex-direction: column; overflow: hidden; 
+        }
+        .integrated-chart-area { padding: 0 20px 20px 20px; }
+
+        /* General & Analytics */
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
         .grid-sidebar { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
-        .card { background: white; border: 1px solid #e1e3e5; border-radius: 12px; padding: 10px 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); display: flex; flex-direction: column; position: relative; }
+        .card { background: white; border: 1px solid #e1e3e5; border-radius: 12px; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); display: flex; flex-direction: column; position: relative; }
         .card-min-h { height: 86px; justify-content: space-between; }
-        .card-fixed-h { height: 280px; padding: 16px; }
+        .card-fixed-h { height: 280px; }
         .card-title { font-size: 13px; font-weight: 600; color: #1a1c1d; border-bottom: 1px dotted #8c9196; display: inline-block; margin-bottom: 4px; cursor: help; }
-        .big-number { font-size: 19px; font-weight: 700; color: #1a1c1d; display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+        .big-number { font-size: 24px; font-weight: 700; color: #1a1c1d; display: flex; align-items: center; gap: 8px; margin-top: 4px; }
         .mini-bar { width: 12px; height: 2px; background-color: #3b82f6; align-self: flex-end; margin-top: auto; }
         .trend-up { color: #008060; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 2px; }
         
-        /* Charts */
         .chart-container-lg { height: 320px; margin-top: 20px; position: relative; }
         .chart-container { height: 220px; margin-top: 20px; position: relative; }
         .chart-area { margin-left: 60px; height: 100%; position: relative; overflow: hidden; }
@@ -118,8 +127,6 @@
         .x-axis-labels { position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-between; font-size: 11px; color: #8c9196; padding-top: 10px; }
         .grid-lines { position: absolute; top: 0; left: 0; right: 0; bottom: 30px; display: flex; flex-direction: column; justify-content: space-between; }
         .grid-line { width: 100%; height: 1px; background-color: #f1f2f3; }
-        
-        /* Lists */
         .breakdown-list { list-style: none; margin-top: 12px; }
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; font-size: 13px; color: #303030; border-bottom: 1px solid #f9f9f9; }
         .text-blue { color: #005bd3; cursor: pointer; } 
@@ -136,50 +143,6 @@
         .cohort-table { width: 100%; border-collapse: collapse; font-size: 13px; }
         .cohort-table th, .cohort-table td { padding: 10px; text-align: center; }
         .heat-cell { background-color: #ebf5ff; color: #005bd3; border-radius: 4px; }
-        .empty-state-container { flex: 1; display: flex; align-items: center; justify-content: center; color: #616161; font-size: 14px; }
-
-        /* === HOME PAGE TABS (FIXED) === */
-        .stat-tabs-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-bottom: 1px solid #e1e3e5; margin-bottom: 20px; }
-        
-        .stat-tab { 
-            padding: 12px 16px 16px 12px; 
-            border-right: 1px solid #e1e3e5; 
-            position: relative; 
-            cursor: pointer;
-            background-color: white; /* Default White */
-            transition: background-color 0.2s ease;
-        }
-        .stat-tab:last-child { border-right: none; }
-        
-        /* Rounded Corners for First and Last Tab in Row */
-        .stat-tab:first-child { border-top-left-radius: 12px; }
-        .stat-tab:last-child { border-top-right-radius: 12px; }
-
-        /* Hover Effect */
-        .stat-tab:hover { background-color: #f7f7f7; }
-        
-        /* Active Tab - NO Top Line, just Grey BG */
-        .stat-tab.active { 
-            background-color: #f1f1f1; 
-            box-shadow: none; /* Removed the top inset shadow line */
-        }
-        
-        .stat-label { font-size: 13px; font-weight: 600; color: #303030; display: flex; align-items: center; gap: 6px; margin-bottom: 6px;}
-        .stat-value { font-size: 14px; font-weight: 600; color: #1a1c1d; }
-        .stat-trend { font-size: 12px; font-weight: 500; margin-left: 6px; }
-        .text-green { color: #008060; }
-        .text-grey { color: #616161; }
-        .card-action { flex: 1; flex-direction: row; align-items: center; padding: 12px 16px; min-height: auto; cursor: pointer; min-width: 200px; font-size:13px; font-weight:600; color:#303030; }
-
-        /* Setup Guide Card */
-        .setup-guide-container { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
-        .setup-content { flex: 1; padding-right: 20px; }
-        .setup-img-container { width: 140px; display: flex; align-items: center; justify-content: center; background: #fdf4f4; border-radius: 8px; overflow: hidden; }
-        .setup-img-container img { width: 100%; height: auto; object-fit: contain; }
-        .setup-btn { background:white; border:1px solid #babfc3; border-radius:6px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; transition: background 0.2s; }
-        .setup-btn:hover { background: #f6f6f7; }
-
-        /* Orders & Settings */
         .orders-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .orders-table-card { background: white; border: 1px solid #e1e3e5; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); overflow: hidden; }
         .orders-filter-container { padding: 12px 16px; border-bottom: 1px solid #e1e3e5; display: flex; gap: 10px; }
@@ -192,19 +155,33 @@
         .badge-warning { background-color: #fff1e1; color: #8a4e0c; } .badge-warning .badge-dot { background-color: #8a4e0c; }
         .badge-paid { background-color: #e4e5e7; color: #303030; border-color: #c9cccf; } .badge-paid .badge-dot { background-color: #5c5f62; }
         
+        .setup-guide-container { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+        .setup-content { flex: 1; padding-right: 20px; }
+        .setup-img-container { width: 140px; display: flex; align-items: center; justify-content: center; background: #fdf4f4; border-radius: 8px; overflow: hidden; }
+        .setup-img-container img { width: 100%; height: auto; object-fit: contain; }
+        .setup-btn { background:white; border:1px solid #babfc3; border-radius:6px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; transition: background 0.2s; }
+        .setup-btn:hover { background: #f6f6f7; }
+        .setup-step-box { background: #f1f2f3; padding: 12px; border-radius: 8px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; }
+
         .settings-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 600px; margin: 0 auto; }
         .settings-input-group { margin-bottom: 16px; }
         .settings-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #1a1c1d; }
         .settings-input { width: 100%; padding: 8px 12px; border: 1px solid #babfc3; border-radius: 6px; font-size: 14px; }
         .settings-btn { background: #008060; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; }
         .settings-btn:hover { background: #006e52; }
+        .settings-list-container { max-height: 250px; overflow-y: auto; border: 1px solid #ebebeb; border-radius: 6px; margin-bottom: 12px; }
+        .settings-list-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #f1f2f3; font-size: 13px; }
+        .settings-list-item:last-child { border-bottom: none; }
+        .edit-input-sm { padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; width: 80px; }
+        .btn-delete { color: #d82c0d; background: none; border: none; cursor: pointer; }
+        .text-green { color: #008060; }
+        .text-grey { color: #616161; }
+        .card-action { flex: 1; flex-direction: row; align-items: center; padding: 12px 16px; min-height: auto; cursor: pointer; min-width: 200px; font-size:13px; font-weight:600; color:#303030; }
 
-        /* Responsive */
         @media (max-width: 1024px) {
             .sidebar { width: 60px; } .nav-item-left span, .nav-arrow, .store-selector span, .nav-sub-menu { display: none !important; } .nav-item { justify-content: center; padding: 12px; }
             .grid-4, .grid-sidebar, .grid-3 { grid-template-columns: 1fr 1fr; }
-            .home-stats-grid { grid-template-columns: 1fr 1fr; }
-            .home-stat-item { border-bottom: 1px solid #e1e3e5; padding-bottom: 12px; margin-bottom: 12px; }
+            .stat-tabs-container { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 600px) {
             .menu-toggle { display: block; margin-right: 8px; }
@@ -215,10 +192,8 @@
             .sidebar .nav-item span, .sidebar .store-selector span { display: inline-block; }
             .sidebar .nav-item { justify-content: space-between; padding: 10px 16px; }
             .sidebar .nav-group.active .nav-sub-menu { display: block; }
-            
             .grid-4, .filters-row { display: flex; overflow-x: auto; gap: 12px; margin-right: -16px; padding-right: 16px; padding-bottom: 8px; }
             .grid-4 .card { min-width: 160px; flex: 0 0 auto; }
-            
             .grid-sidebar, .grid-3 { grid-template-columns: 1fr; }
             .funnel-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
             .funnel-item { border-left: none; padding-left: 0; }
@@ -227,16 +202,10 @@
             .orders-table-card { overflow-x: auto; } .orders-table { min-width: 700px; }
             .header-actions { display: none; }
             .stat-tabs-container { display: flex; overflow-x: auto; border-bottom: none; }
-            .stat-tab { min-width: 140px; flex-shrink: 0; border-right: 1px solid #e1e3e5; border-bottom: 1px solid #e1e3e5; }
+            .stat-tab { min-width: 140px; flex-shrink: 0; }
             .setup-guide-container { flex-direction: column-reverse; gap: 16px; }
             .setup-img-container { width: 100%; height: auto; }
         }
-        
-        .settings-list-container { max-height: 250px; overflow-y: auto; border: 1px solid #ebebeb; border-radius: 6px; margin-bottom: 12px; }
-        .settings-list-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #f1f2f3; font-size: 13px; }
-        .settings-list-item:last-child { border-bottom: none; }
-        .edit-input-sm { padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; width: 80px; }
-        .btn-delete { color: #d82c0d; background: none; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -305,168 +274,103 @@
             
             <div id="home-page" class="page-section active">
                 <div style="margin-bottom: 20px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-                    <button class="btn-filter">Month to date <i data-lucide="chevron-down" width="12"></i></button>
+                    <div class="dropdown"><button class="btn-filter" onclick="toggleDropdown('homeDropdown')"><div style="display:flex; align-items:center; gap:6px;"><span id="homeDateText">Month to date</span> <i data-lucide="chevron-down" width="12"></i></div></button><div id="homeDropdown" class="dropdown-content"><div class="dropdown-item selected" onclick="toggleHomeStats('month')">Month to date <i data-lucide="check" width="14" class="check-icon"></i></div><div class="dropdown-item" onclick="toggleHomeStats('today')">Today <i data-lucide="check" width="14" class="check-icon"></i></div></div></div>
                     <button class="btn-filter">All channels <i data-lucide="chevron-down" width="12"></i></button>
                     <div style="background: #e4fce8; color: #11783c; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                        <div style="width: 6px; height: 6px; background: #11783c; border-radius: 50%;"></div> 2 live visitors
+                        <div style="width: 6px; height: 6px; background: #11783c; border-radius: 50%;"></div> <span id="display-visitors">2 live visitors</span>
                     </div>
                 </div>
 
-                <div class="card" style="padding: 0; overflow:hidden;">
+                <div class="card-integrated">
                     <div class="stat-tabs-container">
-                        <div class="stat-tab active">
-                            <div class="stat-label">Sessions <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div>
-                            <div class="stat-value" style="display:flex; align-items:center;">9,459 <span class="text-green stat-trend"><i data-lucide="arrow-up" width="10"></i> 5.1%</span></div>
-                        </div>
-                        <div class="stat-tab">
-                            <div class="stat-label">Total sales <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div>
-                            <div class="stat-value">PKR 27,245.98 <span class="text-grey stat-trend">-</span></div>
-                        </div>
-                        <div class="stat-tab">
-                            <div class="stat-label">Orders <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div>
-                            <div class="stat-value">224 <span class="text-grey stat-trend">-</span></div>
-                        </div>
-                        <div class="stat-tab">
-                            <div class="stat-label">Conversion rate <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div>
-                            <div class="stat-value">0% <span class="text-grey stat-trend">-</span></div>
-                        </div>
+                        <div class="stat-tab active"><div class="stat-label">Sessions <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-sessions">9,459 <span class="text-green stat-trend"><i data-lucide="arrow-up" width="10"></i> 5.1%</span></div></div>
+                        <div class="stat-tab"><div class="stat-label">Total sales <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-sales">PKR 27,245.98 <span class="text-grey stat-trend">-</span></div></div>
+                        <div class="stat-tab"><div class="stat-label">Orders <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-orders">224 <span class="text-grey stat-trend">-</span></div></div>
+                        <div class="stat-tab"><div class="stat-label">Conversion rate <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-conversion">0% <span class="text-grey stat-trend">-</span></div></div>
                     </div>
                     
-                    <div style="padding: 20px;">
+                    <div class="integrated-chart-area">
                         <div style="position: relative; height: 160px; width: 100%;">
-                            <div style="position:absolute; left:0; top:0; bottom:20px; display:flex; flex-direction:column; justify-content:space-between; font-size:10px; color:#8c9196;">
-                                <span>1K</span><span>500</span><span>0</span>
-                            </div>
+                            <div style="position: absolute; left: 0; right: 0; top: 0; border-top: 1px dashed #d1d5db;"></div>
+                            <div style="position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-10px); border-top: 1px dashed #d1d5db;"></div>
+                            <div style="position: absolute; left: 0; right: 0; bottom: 20px; border-top: 1px dashed #d1d5db;"></div>
+
+                            <div id="home-y-axis" style="position:absolute; left:0; top:0; bottom:20px; display:flex; flex-direction:column; justify-content:space-between; font-size:10px; color:#8c9196;"><span>1K</span><span>500</span><span>0</span></div>
                             <div style="margin-left:40px; height:100%; position:relative;">
                                 <svg viewBox="0 0 800 150" preserveAspectRatio="none" style="width:100%; height:85%;">
-                                    <path class="path-animate" d="M0 130 C 50 130, 80 80, 150 100 C 220 120, 280 60, 350 90 C 420 120, 500 80, 580 110 C 650 140, 750 120, 800 130" fill="none" stroke="#2c6ecb" stroke-width="2" vector-effect="non-scaling-stroke"></path>
-                                    <path class="path-animate" d="M0 140 C 50 140, 80 120, 150 130 C 220 140, 280 100, 350 110 C 420 130, 500 120, 580 130 C 650 140, 750 130, 800 140" fill="none" stroke="#e0e0e0" stroke-width="2" stroke-dasharray="4,4" vector-effect="non-scaling-stroke"></path>
+                                    <path id="home-chart-line" class="path-animate" d="M0 130 C 50 130, 80 80, 150 100 C 220 120, 280 60, 350 90 C 420 120, 500 80, 580 110 C 650 140, 750 120, 800 130" fill="none" stroke="#2c6ecb" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+                                    <path id="home-chart-dash" class="path-animate" d="M0 140 C 50 140, 80 120, 150 130 C 220 140, 280 100, 350 110 C 420 130, 500 120, 580 130 C 650 140, 750 130, 800 140" fill="none" stroke="#e0e0e0" stroke-width="2" stroke-dasharray="4,4" vector-effect="non-scaling-stroke"></path>
                                 </svg>
-                                <div style="display:flex; justify-content:space-between; font-size:10px; color:#8c9196; margin-top:5px; padding-right: 20px;">
-                                    <span>1 Nov</span><span>5 Nov</span><span>10 Nov</span><span>15 Nov</span><span>20 Nov</span><span>25 Nov</span>
-                                </div>
+                                <div id="home-x-axis" style="display:flex; justify-content:space-between; font-size:10px; color:#8c9196; margin-top:5px; padding-right: 20px;"><span>1 Nov</span><span>5 Nov</span><span>10 Nov</span><span>15 Nov</span><span>20 Nov</span><span>25 Nov</span></div>
                             </div>
                         </div>
-                        <div style="display:flex; justify-content:center; gap:20px; font-size:12px; color:#616161; margin-top:10px;">
-                            <div style="display:flex; align-items:center; gap:6px;"><div style="width:8px; height:8px; background:#2c6ecb; border-radius:50%;"></div> Nov 1–24, 2025</div>
-                            <div style="display:flex; align-items:center; gap:6px;"><div style="width:8px; height:8px; border:1px solid #8c9196; border-radius:50%; border-style:dashed;"></div> Oct 1–24, 2025</div>
-                        </div>
+                        <div style="display:flex; justify-content:center; gap:20px; font-size:12px; color:#616161; margin-top:10px;"><div style="display:flex; align-items:center; gap:6px;"><div style="width:8px; height:8px; background:#2c6ecb; border-radius:50%;"></div> Nov 1–24, 2025</div><div style="display:flex; align-items:center; gap:6px;"><div style="width:8px; height:8px; border:1px solid #8c9196; border-radius:50%; border-style:dashed;"></div> Oct 1–24, 2025</div></div>
                     </div>
                 </div>
 
                 <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
-                    <div class="card card-action">
-                         <i data-lucide="package" width="16" style="margin-right: 10px; color:#5c5f62;"></i> 13 orders to fulfill
-                    </div>
-                    <div class="card card-action">
-                         <i data-lucide="credit-card" width="16" style="margin-right: 10px; color:#5c5f62;"></i> 50+ payments to capture
-                    </div>
+                    <div class="card card-action"> <i data-lucide="package" width="16" style="margin-right: 10px; color:#5c5f62;"></i> <span id="display-orders-fulfill">13 orders to fulfill</span> </div>
+                    <div class="card card-action"> <i data-lucide="credit-card" width="16" style="margin-right: 10px; color:#5c5f62;"></i> <span id="display-payments-capture">50+ payments to capture</span> </div>
                 </div>
 
                 <div class="card" style="margin-top: 16px; padding: 20px;">
-                    <div style="margin-bottom: 16px;">
-                        <div style="font-size:13px; font-weight:600; color:#303030; margin-bottom:8px;">2 of 6 tasks complete</div>
-                        <div style="height: 4px; background: #e1e3e5; border-radius: 2px; overflow: hidden;">
-                            <div style="width: 33%; height: 100%; background: #008060;"></div>
-                        </div>
-                    </div>
-                    
+                    <div style="margin-bottom: 16px;"><div style="font-size:13px; font-weight:600; color:#303030; margin-bottom:8px;">2 of 6 tasks complete</div><div style="height: 4px; background: #e1e3e5; border-radius: 2px; overflow: hidden;"><div style="width: 33%; height: 100%; background: #008060;"></div></div></div>
                     <div class="setup-guide-container">
                         <div class="setup-content">
                             <h3 style="font-size:15px; font-weight:600; margin-bottom:4px;">Migrate your data to Shopify</h3>
                             <p style="font-size:13px; color:#616161; line-height:1.5; margin-bottom:16px;">Import a copy of your existing customers, orders, and other data.</p>
                             <button class="setup-btn">Resume guide</button>
                         </div>
-                        <div class="setup-img-container">
-                            <img src="home.image.png" alt="Setup Guide">
+                        <div class="setup-img-container"><img src="home.image.png" alt="Setup Guide"></div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 16px; padding: 20px;">
+                    <div style="margin-bottom: 16px;"><div style="font-size:13px; font-weight:600; color:#303030; margin-bottom:8px;">Customize your theme</div></div>
+                    <div class="setup-guide-container">
+                        <div class="setup-content">
+                            <h3 style="font-size:15px; font-weight:600; margin-bottom:4px;">Design your online store</h3>
+                            <p style="font-size:13px; color:#616161; line-height:1.5; margin-bottom:16px;">Choose a theme and add your logo, colors, and images to reflect your brand.</p>
+                             <div class="setup-step-box"><div style="font-size:13px; font-weight:500; color:#303030;">Current theme: Dawn</div><button class="setup-btn">Customize</button></div>
                         </div>
+                        <div class="setup-img-container"><img src="second.jpeg" alt="Customize Theme"></div>
                     </div>
                 </div>
             </div>
 
             <div id="dashboard-page" class="page-section">
                 <div class="analytics-top-bar">
-                    <div class="analytics-title-group">
-                        <i data-lucide="bar-chart-3" width="24" style="color:#1a1c1d;"></i>
-                        <h1 class="page-title" style="display:inline;">Analytics</h1>
-                        <span id="lastRefreshed" class="last-refreshed">Last refreshed: --:-- AM</span>
-                    </div>
-                    <div class="header-actions">
-                        <button class="header-icon-btn"><i data-lucide="rotate-cw" width="16"></i></button>
-                        <button class="header-icon-btn"><i data-lucide="maximize-2" width="16"></i></button>
-                        <button class="header-icon-btn"><i data-lucide="pencil" width="16"></i></button>
-                        <button class="btn-black">New exploration</button>
-                    </div>
+                    <div class="analytics-title-group"><i data-lucide="bar-chart-3" width="24" style="color:#1a1c1d;"></i><h1 class="page-title">Analytics</h1><span id="lastRefreshed" class="last-refreshed">Last refreshed: --:-- AM</span></div>
+                    <div class="header-actions"><button class="header-icon-btn"><i data-lucide="rotate-cw" width="16"></i></button><button class="header-icon-btn"><i data-lucide="maximize-2" width="16"></i></button><button class="header-icon-btn"><i data-lucide="pencil" width="16"></i></button><button class="btn-black">New exploration</button></div>
                 </div>
-
                 <div class="filters-row">
-                    <div class="dropdown">
-                        <button class="btn-filter" onclick="toggleDropdown()">
-                            <div style="display:flex; align-items:center; gap:6px;"><i data-lucide="calendar" width="14"></i> <span id="dateRangeText">Today</span></div>
-                            <i data-lucide="chevron-down" width="14"></i>
-                        </button>
-                        <div id="dateDropdown" class="dropdown-content">
-                            <div class="dropdown-item selected" onclick="selectDateRange('today', 'Today')">Today <i data-lucide="check" width="14" class="check-icon"></i></div>
-                            <div class="dropdown-item" onclick="selectDateRange('week2', 'Last 2 Weeks')">Last 2 Weeks <i data-lucide="check" width="14" class="check-icon"></i></div>
-                            <div class="dropdown-item" onclick="selectDateRange('month1', 'Month to date')">Month to date <i data-lucide="check" width="14" class="check-icon"></i></div>
-                        </div>
-                    </div>
-                    <button class="btn-filter"><i data-lucide="calendar-days" width="14"></i> Dec 29, 2025</button>
-                    <button class="btn-filter"><i data-lucide="coins" width="14"></i> PKR Rs</button>
+                    <div class="dropdown"><button class="btn-filter" onclick="toggleDropdown('dateDropdown')"><div style="display:flex; align-items:center; gap:6px;"><i data-lucide="calendar" width="14"></i> <span id="dateRangeText">Today</span></div><i data-lucide="chevron-down" width="14"></i></button><div id="dateDropdown" class="dropdown-content"><div class="dropdown-item selected" onclick="selectDateRange('today', 'Today')">Today <i data-lucide="check" width="14" class="check-icon"></i></div><div class="dropdown-item" onclick="selectDateRange('week2', 'Last 2 Weeks')">Last 2 Weeks <i data-lucide="check" width="14" class="check-icon"></i></div><div class="dropdown-item" onclick="selectDateRange('month1', 'Month to date')">Month to date <i data-lucide="check" width="14" class="check-icon"></i></div></div></div>
+                    <button class="btn-filter"><i data-lucide="calendar-days" width="14"></i> Dec 29, 2025</button><button class="btn-filter"><i data-lucide="coins" width="14"></i> PKR Rs</button>
                 </div>
-
-                <div class="grid-4">
-                    <div class="card card-min-h animate-card"><div><div class="card-title">Gross sales</div><div class="big-number animate-text" id="dash-gross">PKR 12,450.00</div></div><div class="trend-up"><i data-lucide="trending-up" width="14"></i> 12%</div></div>
-                    <div class="card card-min-h animate-card"><div><div class="card-title">Returning customer rate</div><div class="big-number animate-text" id="dash-return">15.2%</div></div><div class="trend-up"><i data-lucide="trending-up" width="14"></i> 2%</div></div>
-                    <div class="card card-min-h animate-card"><div><div class="card-title">Orders fulfilled</div><div class="big-number animate-text" id="dash-fulfilled">142</div></div><div class="mini-bar"></div></div>
-                    <div class="card card-min-h animate-card"><div><div class="card-title">Orders</div><div class="big-number animate-text" id="dash-orders">145</div></div><div class="trend-up"><i data-lucide="trending-up" width="14"></i> 8%</div></div>
-                </div>
-
+                <div class="grid-4"><div class="card card-min-h animate-card"><div><div class="card-title">Gross sales</div><div class="big-number animate-text" id="dash-gross">PKR 12,450.00</div></div><div class="trend-up"><i data-lucide="trending-up" width="14"></i> 12%</div></div><div class="card card-min-h animate-card"><div><div class="card-title">Returning customer rate</div><div class="big-number animate-text" id="dash-return">15.2%</div></div><div class="trend-up"><i data-lucide="trending-up" width="14"></i> 2%</div></div><div class="card card-min-h animate-card"><div><div class="card-title">Orders fulfilled</div><div class="big-number animate-text" id="dash-fulfilled">142</div></div><div class="mini-bar"></div></div><div class="card card-min-h animate-card"><div><div class="card-title">Orders</div><div class="big-number animate-text" id="dash-orders">145</div></div><div class="trend-up"><i data-lucide="trending-up" width="14"></i> 8%</div></div></div>
                 <div class="grid-sidebar">
-                    <div class="card animate-card" style="min-height: 420px;">
-                        <div><div class="card-title">Total sales over time</div><div class="big-number animate-text" style="font-size:28px;" id="dash-main-total">PKR 12,450.00</div></div>
-                        <div class="chart-container-lg">
-                            <div class="chart-y-axis" id="chartYAxis"><span>PKR 15k</span><span>PKR 10k</span><span>PKR 5k</span><span>0</span></div>
-                            <div class="chart-area"><div class="grid-lines"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div><svg class="svg-chart" viewBox="0 0 1000 300" preserveAspectRatio="none"><path id="chartFill" d="M0 280 C 150 280, 300 150, 500 200 S 850 50, 1000 80 V 300 H 0 Z" fill="rgba(59, 130, 246, 0.1)" stroke="none" /><path id="chartLine" class="animated-path" d="M0 280 C 150 280, 300 150, 500 200 S 850 50, 1000 80" fill="none" stroke="#3b82f6" stroke-width="3" vector-effect="non-scaling-stroke"/></svg></div>
-                        </div>
-                    </div>
-                    <div class="card animate-card">
-                        <div class="card-title">Total sales breakdown</div>
-                        <ul class="breakdown-list">
-                            <li class="list-item"><span class="text-blue">Gross sales</span><span id="bd-gross">PKR 12,450.00</span></li>
-                            <li class="list-item"><span class="text-blue">Discounts</span><span>PKR -50.00</span></li>
-                            <li class="list-item"><span class="text-blue">Returns</span><span>PKR -120.00</span></li>
-                            <li class="list-item" style="background:#f1f2f3; border-radius:6px; font-weight:500;"><span class="text-blue">Net sales</span><span id="bd-net">PKR 12,280.00</span></li>
-                            <li class="list-item"><span class="text-blue">Shipping</span><span>PKR 350.00</span></li>
-                            <li class="list-item"><span class="text-blue">Taxes</span><span>PKR 1,200.00</span></li>
-                            <li class="list-item" style="border-top:1px solid #e1e3e5; font-weight:700;"><span class="text-blue">Total sales</span><span id="bd-total">PKR 13,830.00</span></li>
-                        </ul>
-                    </div>
+                    <div class="card animate-card" style="min-height: 420px;"><div><div class="card-title">Total sales over time</div><div class="big-number animate-text" id="dash-main-total">PKR 12,450.00</div></div><div class="chart-container-lg"><div class="chart-y-axis" id="chartYAxis"><span>PKR 15k</span><span>PKR 10k</span><span>PKR 5k</span><span>0</span></div><div class="chart-area"><div class="grid-lines"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div></div><svg class="svg-chart" viewBox="0 0 1000 300" preserveAspectRatio="none"><path class="path-animate" d="M0 280 C 150 280, 300 150, 500 200 S 850 50, 1000 80" fill="none" stroke="#3b82f6" stroke-width="3" vector-effect="non-scaling-stroke"/></svg></div></div></div>
+                    <div class="card animate-card"><div class="card-title">Total sales breakdown</div><ul class="breakdown-list"><li class="list-item"><span class="text-blue">Gross sales</span><span id="bd-gross">PKR 12,450.00</span></li><li class="list-item"><span class="text-blue">Discounts</span><span>PKR -50.00</span></li><li class="list-item"><span class="text-blue">Returns</span><span>PKR -120.00</span></li><li class="list-item" style="background:#f1f2f3; border-radius:6px; font-weight:500;"><span class="text-blue">Net sales</span><span id="bd-net">PKR 12,280.00</span></li><li class="list-item"><span class="text-blue">Shipping</span><span>PKR 350.00</span></li><li class="list-item"><span class="text-blue">Taxes</span><span>PKR 1,200.00</span></li><li class="list-item" style="border-top:1px solid #e1e3e5; font-weight:700;"><span class="text-blue">Total sales</span><span id="bd-total">PKR 13,830.00</span></li></ul></div>
                 </div>
-
-                <div class="grid-3">
-                    <div class="card card-fixed-h animate-card"><div class="card-title">Total sales by sales channel</div><ul class="breakdown-list"><li class="list-item"><span>Online Store</span><span>PKR 10,500.00</span></li><li class="list-item"><span>Facebook Shop</span><span>PKR 1,200.00</span></li><li class="list-item"><span>Instagram</span><span>PKR 750.00</span></li></ul></div>
-                    <div class="card card-fixed-h animate-card"><div><div class="card-title">Average order value</div><div class="big-number">PKR 85.20</div></div><div class="chart-container"><div class="chart-y-axis"><span>PKR 100</span><span>0</span></div><div class="chart-area"><div class="grid-lines"><div class="grid-line"></div><div class="grid-line"></div></div><svg class="svg-chart" viewBox="0 0 500 150" preserveAspectRatio="none"><path class="animated-path" d="M0 130 Q 150 140, 250 80 T 500 40" fill="none" stroke="#3b82f6" stroke-width="3" vector-effect="non-scaling-stroke" /></svg></div></div></div>
-                    <div class="card card-fixed-h animate-card" style="overflow-y: hidden;"><div class="card-title">Top Products</div><ul class="product-list"><li class="product-item"><div class="product-info"><div class="product-img"></div><div><div class="product-name">Leather Wallet</div><div class="product-stat">45 sold</div></div></div><span>PKR 2,250</span></li><li class="product-item"><div class="product-info"><div class="product-img"></div><div><div class="product-name">Smart Watch</div><div class="product-stat">32 sold</div></div></div><span>PKR 4,800</span></li></ul></div>
-                </div>
-
-                <div class="grid-3">
-                    <div class="card card-fixed-h animate-card"><div><div class="card-title">Sessions</div><div class="big-number">4,250</div></div><div class="chart-container"><div class="chart-y-axis"><span>5k</span><span>0</span></div><div class="chart-area"><div class="grid-lines"><div class="grid-line"></div><div class="grid-line"></div></div><svg class="svg-chart" viewBox="0 0 500 150" preserveAspectRatio="none"><path class="animated-path" d="M0 140 Q 150 120, 300 50 T 500 80" fill="none" stroke="#3b82f6" stroke-width="3" vector-effect="non-scaling-stroke" /></svg></div></div></div>
-                    <div class="card card-fixed-h animate-card"><div><div class="card-title">Conversion breakdown</div><div class="big-number">3.2%</div></div><div class="funnel-grid"><div class="funnel-item"><span style="color:#616161">Sessions</span><span class="font-bold">4,250</span></div><div class="funnel-item"><span style="color:#616161">Cart</span><span class="font-bold">320</span></div><div class="funnel-item"><span style="color:#616161">Checkout</span><span class="font-bold">180</span></div><div class="funnel-item"><span style="color:#616161">Converted</span><span class="font-bold">145</span></div></div></div>
-                    <div class="card card-fixed-h animate-card"><div class="card-title">Top Referrers</div><ul class="breakdown-list"><li class="list-item"><span>Google Search</span><span>1,850 sessions</span></li><li class="list-item"><span>Direct</span><span>920 sessions</span></li><li class="list-item"><span>Instagram</span><span>850 sessions</span></li></ul></div>
-                </div>
-
-                <div class="grid-sidebar">
-                    <div class="card animate-card" style="overflow: hidden;"><div class="card-title">Customer cohort analysis</div><div class="table-container"><table class="cohort-table"><thead><tr><th>Cohort</th><th>Months</th><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody><tr><td style="padding:12px 4px; color:#616161;">Apr 2025</td><td class="heat-cell">0%</td><td class="heat-cell">0%</td><td class="heat-cell">0%</td><td class="heat-cell">0%</td><td class="heat-cell">0%</td></tr><tr><td style="padding:12px 4px; color:#616161;">May 2025</td><td class="heat-cell">0%</td><td class="heat-cell">0%</td><td class="heat-cell">0%</td><td class="heat-cell">0%</td><td></td></tr></tbody></table></div></div>
-                    <div class="card animate-card"><div class="card-title">Sessions by landing page</div><ul class="breakdown-list"><li class="list-item"><span>/</span><span>1,200</span></li><li class="list-item"><span>/products/wallet</span><span>850</span></li><li class="list-item"><span>/collections/sale</span><span>640</span></li></ul></div>
-                </div>
+                <div class="grid-3"><div class="card card-fixed-h animate-card"><div class="card-title">Total sales by sales channel</div><ul class="breakdown-list"><li class="list-item"><span>Online Store</span><span>PKR 10,500.00</span></li></ul></div><div class="card card-fixed-h animate-card"><div><div class="card-title">Average order value</div><div class="big-number">PKR 85.20</div></div></div><div class="card card-fixed-h animate-card"><div class="card-title">Top Products</div></div></div>
+                <div class="grid-sidebar"><div class="card animate-card"><div class="card-title">Customer cohort analysis</div></div><div class="card animate-card"><div class="card-title">Sessions by landing page</div></div></div>
             </div>
 
             <div id="orders-page" class="page-section">
-                <div class="orders-header"><h1 class="page-title">Orders</h1><div class="orders-action-container"><button class="btn-filter">Export</button><button class="btn-filter" style="background:#303030; color:white; border:none;">Create order</button></div></div><div class="orders-table-card animate-card"><div class="orders-filter-container"><div class="search-input" style="width:100%; background:white; border-color:#c9cccf; color:#303030; padding:6px 30px;"><i data-lucide="search" width="14" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); color:#5c5f62;"></i> Filter orders</div></div><div class="table-container"><table class="orders-table"><thead><tr><th><input type="checkbox"></th><th>Order</th><th>Date</th><th>Customer</th><th>Total</th><th>Payment</th><th>Fulfillment</th><th>Items</th></tr></thead><tbody id="ordersTableBody"></tbody></table></div></div>
+                <div class="orders-header"><h1 class="page-title">Orders</h1><div class="orders-action-container"><button class="btn-filter">Export</button><button class="btn-filter" style="background:#303030; color:white; border:none;">Create order</button></div></div>
+                <div class="orders-table-card animate-card"><div class="orders-filter-container"><div class="search-input" style="width:100%; background:white; border-color:#c9cccf; color:#303030; padding:6px 30px;"><i data-lucide="search" width="14" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); color:#5c5f62;"></i> Filter orders</div></div><div class="table-container"><table class="orders-table"><thead><tr><th><input type="checkbox"></th><th>Order</th><th>Date</th><th>Customer</th><th>Total</th><th>Payment</th><th>Fulfillment</th><th>Items</th></tr></thead><tbody id="ordersTableBody"></tbody></table></div></div>
             </div>
+
             <div id="settings-page" class="page-section">
-                <div class="analytics-header"><h1 class="page-title">Settings</h1></div><div class="settings-grid"><div class="card"><h3>Dashboard Values</h3><div class="settings-input-group" style="margin-top:10px;"><label class="settings-label">Gross Sales</label><input type="text" id="inputGross" class="settings-input" value="PKR 12,450.00"></div><div class="settings-input-group"><label class="settings-label">Returns</label><input type="text" id="inputReturn" class="settings-input" value="15.2%"></div><div class="settings-input-group"><label class="settings-label">Fulfilled</label><input type="text" id="inputFulfilled" class="settings-input" value="142"></div><div class="settings-input-group"><label class="settings-label">Orders</label><input type="text" id="inputTotalOrders" class="settings-input" value="145"></div><button class="settings-btn" onclick="saveDashboardSettings()">Save Changes</button></div><div class="card"><h3>Add Fake Order</h3><div class="settings-input-group" style="margin-top:10px;"><label class="settings-label">Customer Name</label><input type="text" id="orderName" class="settings-input"></div><div class="settings-input-group"><label class="settings-label">Amount</label><input type="text" id="orderPrice" class="settings-input"></div><div class="settings-input-group"><label class="settings-label">Payment</label><select id="orderStatus" class="settings-input"><option>Paid</option><option>Pending</option></select></div><button class="settings-btn" onclick="addFakeOrder()">Add Order</button></div></div>
+                <div class="analytics-header"><h1 class="page-title">Settings</h1></div>
+                <div class="settings-grid"><div class="card"><h3>Dashboard Values</h3><div class="settings-input-group"><label class="settings-label">Gross Sales</label><input type="text" id="inputGross" class="settings-input" value="PKR 12,450.00"></div><button class="settings-btn" onclick="saveDashboardSettings()">Save Changes</button></div>
+                <div class="card"><h3>Home Page Data</h3><div class="settings-input-group"><label class="settings-label">Live Visitors Count</label><input type="text" id="inputLiveVisitors" class="settings-input" placeholder="e.g. 2 live visitors"></div><div class="settings-input-group"><label class="settings-label">Today Sales (Price)</label><input type="text" id="inputTodaySales" class="settings-input" placeholder="e.g. PKR 0.00"></div><div class="settings-input-group"><label class="settings-label">Today Orders (Count)</label><input type="text" id="inputTodayOrders" class="settings-input" placeholder="e.g. 0"></div>
+                <div class="settings-input-group"><label class="settings-label">Today Sessions</label><input type="text" id="inputTodaySessions" class="settings-input" placeholder="e.g. 0"></div>
+                <div class="settings-input-group"><label class="settings-label">Orders Fulfill Text</label><input type="text" id="inputOrdersFulfill" class="settings-input" value="13 orders to fulfill"></div><div class="settings-input-group"><label class="settings-label">Payments Capture Text</label><input type="text" id="inputPaymentsCapture" class="settings-input" value="50+ payments to capture"></div><button class="settings-btn" onclick="saveDashboardSettings()">Save Home Data</button></div>
+                <div class="card"><h3>Add Fake Order</h3><div class="settings-input-group"><label class="settings-label">Customer Name</label><input type="text" id="orderName" class="settings-input"></div>
+                <div class="settings-input-group"><label class="settings-label">Amount</label><input type="text" id="orderPrice" class="settings-input"></div>
+                <div class="settings-input-group"><label class="settings-label">Payment</label><select id="orderStatus" class="settings-input"><option>Paid</option><option>Pending</option></select></div>
+                <button class="settings-btn" onclick="addFakeOrder()">Add Order</button></div></div>
             </div>
 
         </main>
@@ -480,20 +384,25 @@
             returns: "15.2%",
             fulfilled: "142",
             ordersCount: "145",
+            liveVisitors: "2 live visitors",
+            ordersFulfill: "13 orders to fulfill",
+            paymentsCapture: "50+ payments to capture",
+            todaySales: "PKR 0.00", 
+            todayOrders: "0",
+            todaySessions: "0", // New Field
             ordersList: [] 
         };
 
-        const chartData = {
-            today: { path: "M0 280 C 150 280, 300 150, 500 200 S 850 50, 1000 80", fill: "M0 280 C 150 280, 300 150, 500 200 S 850 50, 1000 80 V 300 H 0 Z" },
-            week2: { path: "M0 250 C 200 200, 400 50, 600 100 S 800 20, 1000 40", fill: "M0 250 C 200 200, 400 50, 600 100 S 800 20, 1000 40 V 300 H 0 Z" },
-            month1: { path: "M0 280 Q 250 250, 500 150 T 1000 10", fill: "M0 280 Q 250 250, 500 150 T 1000 10 V 300 H 0 Z" }
-        };
-
         function initData() {
-            const savedData = localStorage.getItem('shopifyCloneDataPKR_Final');
+            const savedData = localStorage.getItem('shopifyCloneDataPKR_Final_v6');
             if (savedData) {
                 appData = JSON.parse(savedData);
                 if (!appData.ordersList) appData.ordersList = [];
+                // Defaults for new fields
+                if (!appData.todaySales) appData.todaySales = "PKR 0.00";
+                if (!appData.todayOrders) appData.todayOrders = "0";
+                if (!appData.todaySessions) appData.todaySessions = "0";
+                
                 if (appData.ordersList.length === 0) generateDefaultOrders();
             } else {
                 generateDefaultOrders();
@@ -502,95 +411,176 @@
         }
 
         function generateDefaultOrders() {
-            const names = ["Shahzaman", "John Doe", "Sarah Smith", "Mike Ross", "Harvey Specter", "Donna Paulsen", "Louis Litt", "Rachel Zane"];
+            const names = ["Shahzaman", "John Doe", "Sarah Smith", "Mike Ross", "Harvey Specter"];
             for(let i=0; i<15; i++) {
                 appData.ordersList.push({
                     id: 1025 - i,
-                    date: i === 0 ? "Today at 4:30 pm" : (i === 1 ? "Yesterday" : `Dec ${24 - i}, 2025`),
+                    date: "Today",
                     name: names[i % names.length],
-                    price: `PKR ${(Math.random() * 5000 + 500).toFixed(2)}`,
-                    payment: Math.random() > 0.3 ? 'Paid' : 'Pending',
-                    fulfillment: 'Unfulfilled',
-                    items: Math.floor(Math.random() * 5) + 1 + " items"
+                    price: "PKR 500.00",
+                    payment: "Paid",
+                    fulfillment: "Unfulfilled",
+                    items: "1 item"
                 });
             }
         }
 
         function saveData() {
-            localStorage.setItem('shopifyCloneDataPKR_Final', JSON.stringify(appData));
+            localStorage.setItem('shopifyCloneDataPKR_Final_v6', JSON.stringify(appData));
             renderAll();
         }
 
         function renderAll() {
             if(document.getElementById('dash-gross')) {
-                const currentRangeText = document.getElementById('dateRangeText') ? document.getElementById('dateRangeText').innerText : "Today";
-                if (currentRangeText === "Today") {
-                    document.getElementById('dash-gross').innerText = appData.gross;
-                    document.getElementById('dash-return').innerText = appData.returns;
-                    document.getElementById('dash-fulfilled').innerText = appData.fulfilled;
-                    document.getElementById('dash-orders').innerText = appData.ordersCount;
-                    document.getElementById('dash-main-total').innerText = appData.gross;
-                    document.getElementById('bd-gross').innerText = appData.gross;
-                    document.getElementById('bd-net').innerText = appData.gross;
-                    document.getElementById('bd-total').innerText = appData.gross;
-                }
+                document.getElementById('dash-gross').innerText = appData.gross;
+                // Sync Main Total and Breakdown List
+                document.getElementById('dash-main-total').innerText = appData.gross;
+                document.getElementById('bd-gross').innerText = appData.gross;
+                document.getElementById('bd-net').innerText = appData.gross; // Simplified sync
+                document.getElementById('bd-total').innerText = appData.gross; // Simplified sync
             }
+            
+            if(document.getElementById('display-visitors')) document.getElementById('display-visitors').innerText = appData.liveVisitors;
+            if(document.getElementById('display-orders-fulfill')) document.getElementById('display-orders-fulfill').innerText = appData.ordersFulfill;
+            if(document.getElementById('display-payments-capture')) document.getElementById('display-payments-capture').innerText = appData.paymentsCapture;
 
-            if(document.getElementById('inputGross')) {
-                document.getElementById('inputGross').value = appData.gross;
-                document.getElementById('inputReturn').value = appData.returns;
-                document.getElementById('inputFulfilled').value = appData.fulfilled;
-                document.getElementById('inputTotalOrders').value = appData.ordersCount;
-            }
+            // Populate Settings Inputs
+            if(document.getElementById('inputGross')) document.getElementById('inputGross').value = appData.gross;
+            if(document.getElementById('inputLiveVisitors')) document.getElementById('inputLiveVisitors').value = appData.liveVisitors;
+            if(document.getElementById('inputOrdersFulfill')) document.getElementById('inputOrdersFulfill').value = appData.ordersFulfill;
+            if(document.getElementById('inputPaymentsCapture')) document.getElementById('inputPaymentsCapture').value = appData.paymentsCapture;
+            if(document.getElementById('inputTodaySales')) document.getElementById('inputTodaySales').value = appData.todaySales;
+            if(document.getElementById('inputTodayOrders')) document.getElementById('inputTodayOrders').value = appData.todayOrders;
+            if(document.getElementById('inputTodaySessions')) document.getElementById('inputTodaySessions').value = appData.todaySessions;
 
             const tbody = document.getElementById('ordersTableBody');
             if(tbody) {
                 tbody.innerHTML = '';
                 appData.ordersList.forEach(order => {
                     const badgeClass = order.payment === 'Paid' ? 'badge-success' : 'badge-warning';
-                    const row = `<tr><td><input type="checkbox"></td><td style="font-weight:600;">#${order.id}</td><td>${order.date}</td><td>${order.name}</td><td>${order.price}</td><td><span class="badge ${badgeClass}"><span class="badge-dot"></span> ${order.payment}</span></td><td><span class="badge badge-warning"><span class="badge-dot"></span> ${order.fulfillment}</span></td><td>${order.items}</td></tr>`;
+                    const row = `<tr><td><input type="checkbox"></td><td>#${order.id}</td><td>${order.date}</td><td>${order.name}</td><td>${order.price}</td><td><span class="badge ${badgeClass}">${order.payment}</span></td><td><span class="badge badge-warning">${order.fulfillment}</span></td><td>${order.items}</td></tr>`;
                     tbody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+            
+            // Refresh Settings List
+             const settingsList = document.getElementById('settingsOrdersList');
+            if(settingsList) {
+                settingsList.innerHTML = '';
+                appData.ordersList.slice(0, 50).forEach((order, index) => { 
+                     const row = document.createElement('div');
+                     row.className = 'settings-list-item';
+                     row.innerHTML = `
+                        <span>#${order.id}</span>
+                        <input type="text" class="edit-input-sm" value="${order.name}" id="edit-name-${index}">
+                        <input type="text" class="edit-input-sm" value="${order.price}" id="edit-price-${index}">
+                        <button class="btn-delete" onclick="deleteOrder(${index})"><i class="fa-solid fa-trash"></i></button>
+                     `;
+                     settingsList.appendChild(row);
                 });
             }
         }
 
-        function saveDashboardSettings() {
-            appData.gross = document.getElementById('inputGross').value;
-            appData.returns = document.getElementById('inputReturn').value;
-            appData.fulfilled = document.getElementById('inputFulfilled').value;
-            appData.ordersCount = document.getElementById('inputTotalOrders').value;
-            saveData();
-            alert("Dashboard Updated!");
+        function toggleHomeStats(period) {
+            const sess = document.getElementById('home-sessions');
+            const sales = document.getElementById('home-sales');
+            const orders = document.getElementById('home-orders');
+            const conv = document.getElementById('home-conversion');
+            const chartLine = document.getElementById('home-chart-line');
+            const chartDash = document.getElementById('home-chart-dash');
+            const dropdownText = document.getElementById('homeDateText');
+            const yAxis = document.getElementById('home-y-axis');
+            const xAxis = document.getElementById('home-x-axis');
+            
+            if(period === 'today') {
+                dropdownText.innerText = "Today";
+                
+                // Get numerical value from sales string
+                const numericSales = parseFloat(appData.todaySales.replace(/[^0-9.]/g, '')) || 0;
+                
+                sess.innerHTML = `${appData.todaySessions} <span class="text-grey stat-trend">-</span>`;
+                sales.innerHTML = `${appData.todaySales} <span class="text-grey stat-trend">-</span>`;
+                orders.innerHTML = `${appData.todayOrders} <span class="text-grey stat-trend">-</span>`;
+                conv.innerHTML = '0% <span class="text-grey stat-trend">-</span>';
+                
+                if(numericSales > 0) {
+                     // Dynamic curve
+                     chartLine.setAttribute('d', 'M0 140 C 100 140, 150 120, 200 100 S 300 80, 400 90 S 600 50, 800 40');
+                     chartDash.setAttribute('d', 'M0 150 C 100 150, 150 130, 200 110 S 300 90, 400 100 S 600 60, 800 50');
+                } else {
+                     // Flat line
+                     chartLine.setAttribute('d', 'M0 148 L800 148');
+                     chartDash.setAttribute('d', 'M0 148 L800 148');
+                }
+
+                yAxis.innerHTML = '<span>₨300</span><span>₨150</span><span>₨0</span>';
+                xAxis.innerHTML = '<span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span>';
+            } else {
+                dropdownText.innerText = "Month to date";
+                sess.innerHTML = '9,459 <span class="text-green stat-trend"><i data-lucide="arrow-up" width="10"></i> 5.1%</span>';
+                sales.innerHTML = 'PKR 27,245.98 <span class="text-grey stat-trend">-</span>';
+                orders.innerHTML = '224 <span class="text-grey stat-trend">-</span>';
+                conv.innerHTML = '0% <span class="text-grey stat-trend">-</span>';
+                
+                chartLine.setAttribute('d', 'M0 130 C 50 130, 80 80, 150 100 C 220 120, 280 60, 350 90 C 420 120, 500 80, 580 110 C 650 140, 750 120, 800 130');
+                chartDash.setAttribute('d', 'M0 140 C 50 140, 80 120, 150 130 C 220 140, 280 100, 350 110 C 420 130, 500 120, 580 130 C 650 140, 750 130, 800 140');
+                yAxis.innerHTML = '<span>1K</span><span>500</span><span>0</span>';
+                xAxis.innerHTML = '<span>1 Nov</span><span>5 Nov</span><span>10 Nov</span><span>15 Nov</span><span>20 Nov</span><span>25 Nov</span>';
+            }
+            lucide.createIcons();
+            document.getElementById("homeDropdown").classList.remove('show');
         }
 
-        function addFakeOrder() {
+        function saveDashboardSettings() {
+            const grossInput = document.getElementById('inputGross');
+            if(grossInput) appData.gross = grossInput.value;
+            
+            const liveVis = document.getElementById('inputLiveVisitors');
+            const ordFulfill = document.getElementById('inputOrdersFulfill');
+            const payCapture = document.getElementById('inputPaymentsCapture');
+            
+            const todaySalesIn = document.getElementById('inputTodaySales');
+            const todayOrdersIn = document.getElementById('inputTodayOrders');
+            const todaySessIn = document.getElementById('inputTodaySessions');
+            
+            if(liveVis) appData.liveVisitors = liveVis.value;
+            if(ordFulfill) appData.ordersFulfill = ordFulfill.value;
+            if(payCapture) appData.paymentsCapture = payCapture.value;
+            if(todaySalesIn) appData.todaySales = todaySalesIn.value;
+            if(todayOrdersIn) appData.todayOrders = todayOrdersIn.value;
+            if(todaySessIn) appData.todaySessions = todaySessIn.value;
+
+            saveData();
+            alert("Data Updated!");
+            
+            const dropdownText = document.getElementById('homeDateText');
+            if(dropdownText && dropdownText.innerText === "Today") {
+                toggleHomeStats('today');
+            }
+        }
+        
+        function addFakeOrder() { 
             const name = document.getElementById('orderName').value || "New Customer";
             const price = document.getElementById('orderPrice').value || "PKR 500.00";
             const status = document.getElementById('orderStatus').value;
             
-            const newOrder = {
-                id: appData.ordersList.length > 0 ? appData.ordersList[0].id + 1 : 1001,
+            appData.ordersList.unshift({
+                id: 1000 + appData.ordersList.length,
                 date: "Just now",
                 name: name,
                 price: price,
                 payment: status,
                 fulfillment: "Unfulfilled",
                 items: "1 item"
-            };
-            
-            appData.ordersList.unshift(newOrder); 
-            let currentCount = parseInt(appData.ordersCount.replace(/,/g, '')) || 0;
-            appData.ordersCount = currentCount + 1;
-            
+            });
             saveData();
-            alert("Order Added!");
-            showPage('orders', null);
-            document.getElementById('orderName').value = "";
-            document.getElementById('orderPrice').value = "";
+            alert("Order Added");
+            
+            // Explicitly force render to update lists immediately
+            renderAll(); 
         }
-
+        
         function saveOrderEdits() {
-            // Update orders based on inputs in settings list
             appData.ordersList.slice(0, 50).forEach((order, index) => {
                 const nameInput = document.getElementById(`edit-name-${index}`);
                 const priceInput = document.getElementById(`edit-price-${index}`);
@@ -599,14 +589,15 @@
             });
             saveData();
             alert("Orders Updated!");
+            renderAll();
         }
-
+        
         function deleteOrder(index) {
-            if(confirm("Delete this order?")) {
+             if(confirm("Delete this order?")) {
                 appData.ordersList.splice(index, 1);
                 saveData();
             }
-        }
+         }
 
         function showPage(pageId, element) {
             document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
@@ -614,60 +605,28 @@
             
             document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
             if (element) {
+                element.classList.add('active');
                 const group = element.closest('.nav-group');
-                if(group) group.classList.add('active');
-                if(element.classList.contains('nav-item')) element.classList.add('active');
+                if(group && group.querySelector('.nav-sub-menu')) group.classList.add('active');
             }
-
             if(document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
         }
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
-        function toggleDropdown() { document.getElementById("dateDropdown").classList.toggle("show"); }
-        window.onclick = function(event) { if (!event.target.closest('.dropdown')) document.getElementById("dateDropdown").classList.remove('show'); }
-
-        function selectDateRange(period, label) {
-            document.getElementById('dateRangeText').innerText = label;
-            document.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
-            
-            if (period === 'today') {
-                renderAll(); 
-                const cData = chartData.today;
-                document.getElementById('chartLine').setAttribute('d', cData.path);
-                document.getElementById('chartFill').setAttribute('d', cData.fill);
-            } else {
-                const data = { 
-                    week2: { gross: "PKR 85,200.00", returns: "12.5%", fulfilled: 850, orders: 890 },
-                    month1: { gross: "PKR 180,500.00", returns: "9.8%", fulfilled: 2100, orders: 2150 }
-                }[period];
-                
-                if(data) {
-                    document.getElementById('dash-gross').innerText = data.gross;
-                    document.getElementById('dash-return').innerText = data.returns;
-                    document.getElementById('dash-fulfilled').innerText = data.fulfilled;
-                    document.getElementById('dash-orders').innerText = data.orders;
-                    document.getElementById('dash-main-total').innerText = data.gross;
-                    
-                    const cData = chartData[period];
-                    document.getElementById('chartLine').setAttribute('d', cData.path);
-                    document.getElementById('chartFill').setAttribute('d', cData.fill);
-                }
-            }
-            toggleDropdown();
-        }
-
-        function updateTime() {
-            const now = new Date();
+        function toggleDropdown(id) { document.getElementById(id || "dateDropdown").classList.toggle("show"); }
+        window.onclick = function(event) { if (!event.target.closest('.dropdown')) document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show')); }
+        
+        function selectDateRange() { /* ... */ }
+        function updateTime() { 
+             const now = new Date();
             let hours = now.getHours();
             const minutes = now.getMinutes().toString().padStart(2, '0');
             const ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12 || 12;
             const timeEl = document.getElementById('lastRefreshed');
             if(timeEl) timeEl.innerText = `Last refreshed: ${hours}:${minutes} ${ampm}`;
-        }
+         }
 
         initData();
         updateTime();
