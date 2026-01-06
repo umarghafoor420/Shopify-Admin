@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shopify Admin - Final Grey Badge</title>
+    <title>Shopify Admin - Final Persistent</title>
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M150 150 L150 100 A 100 100 0 0 1 362 100 L362 150' fill='none' stroke='%2395BF47' stroke-width='40'/%3E%3Cpath d='M64 150 L448 150 L480 480 L32 480 Z' fill='%2395BF47'/%3E%3Cpath d='M256 380 C 200 380 180 350 180 330 L 220 330 C 220 340 230 350 256 350 C 280 350 280 330 256 320 L 230 310 C 180 290 180 240 230 220 L 230 200 L 282 200 L 282 220 C 320 220 340 250 340 270 L 300 270 C 300 260 290 250 256 250 C 230 250 230 270 256 280 L 282 290 C 332 310 332 360 282 380 L 282 400 L 230 400 L 230 380 Z' fill='white'/%3E%3C/svg%3E">
 
@@ -50,14 +50,14 @@
         .nav-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; margin: 2px 8px; border-radius: 8px; font-size: 14px; font-weight: 500; color: #5c5f62; cursor: pointer; text-decoration: none; }
         .nav-item-left { display: flex; align-items: center; gap: 10px; }
         
-        /* === UPDATED SIDEBAR BADGE (GREY) === */
+        /* UPDATED SIDEBAR BADGE (GREY) */
         .nav-badge { 
-            background-color: #d4d4d8; /* Light Grey Background */
-            color: #303030;            /* Dark Grey Text */
+            background-color: #d4d4d8; 
+            color: #303030;            
             font-size: 11px; 
             font-weight: 600; 
-            padding: 2px 8px;          /* Pill shape padding */
-            border-radius: 12px;       /* Rounded corners */
+            padding: 2px 8px;          
+            border-radius: 12px;       
             margin-left: 8px; 
             display: inline-flex; 
             align-items: center; 
@@ -92,7 +92,6 @@
         .header-icon-btn:hover { background: #d4d6d8; }
         .btn-black { background: #303030; color: white; border: none; border-radius: 8px; padding: 0 16px; height: 32px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; }
         
-        /* FILTERS */
         .filters-row { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
         .dropdown { position: relative; display: inline-block; }
         .btn-filter { background: white; border: 1px solid #babfc3; border-radius: 8px; padding: 0 12px; height: 32px; font-size: 13px; font-weight: 500; color: #303030; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 0 rgba(0,0,0,0.05); transition: background 0.1s; }
@@ -116,7 +115,9 @@
         
         .stat-label { font-size: 13px; font-weight: 700; color: #303030; display: flex; align-items: center; gap: 6px; margin-bottom: 6px;}
         .stat-value { font-size: 16px; font-weight: 800; color: #1a1c1d; } 
-        .stat-trend { font-size: 12px; font-weight: 600; margin-left: 6px; }
+        
+        /* REMOVED TREND STYLES (Arrows & %) */
+        .stat-trend { display: none; } /* HIDDEN AS REQUESTED */
 
         /* Integrated Card */
         .card-integrated { 
@@ -135,7 +136,8 @@
         .card-title { font-size: 13px; font-weight: 600; color: #1a1c1d; border-bottom: 1px dotted #8c9196; display: inline-block; margin-bottom: 4px; cursor: help; }
         .big-number { font-size: 24px; font-weight: 700; color: #1a1c1d; display: flex; align-items: center; gap: 8px; margin-top: 4px; }
         .mini-bar { width: 12px; height: 2px; background-color: #3b82f6; align-self: flex-end; margin-top: auto; }
-        .trend-up { color: #008060; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 2px; }
+        /* Trend removed here too */
+        .trend-up { display: none; } 
         
         .chart-container-lg { height: 320px; margin-top: 20px; position: relative; }
         .chart-container { height: 220px; margin-top: 20px; position: relative; }
@@ -312,10 +314,10 @@
 
                 <div class="card-integrated">
                     <div class="stat-tabs-container">
-                        <div class="stat-tab active"><div class="stat-label">Sessions <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-sessions">9,459 <span class="text-green stat-trend"><i data-lucide="arrow-up" width="10"></i> 5.1%</span></div></div>
-                        <div class="stat-tab"><div class="stat-label">Total sales <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-sales">PKR 27,245.98 <span class="text-grey stat-trend">-</span></div></div>
-                        <div class="stat-tab"><div class="stat-label">Orders <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-orders">224 <span class="text-grey stat-trend">-</span></div></div>
-                        <div class="stat-tab"><div class="stat-label">Conversion rate <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-conversion">0% <span class="text-grey stat-trend">-</span></div></div>
+                        <div class="stat-tab active"><div class="stat-label">Sessions <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-sessions">9,459</div></div>
+                        <div class="stat-tab"><div class="stat-label">Total sales <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-sales">PKR 27,245.98</div></div>
+                        <div class="stat-tab"><div class="stat-label">Orders <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-orders">224</div></div>
+                        <div class="stat-tab"><div class="stat-label">Conversion rate <i data-lucide="pencil" width="10" style="opacity:0.5"></i></div><div class="stat-value" id="home-conversion">0%</div></div>
                     </div>
                     
                     <div class="integrated-chart-area">
